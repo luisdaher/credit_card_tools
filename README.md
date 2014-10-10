@@ -1,5 +1,6 @@
 # CreditCardTools
 
+[![Build Status](https://travis-ci.org/luisdaher/credit_card_tools.svg?branch=master)](https://travis-ci.org/luisdaher/credit_card_tools)
 TODO: Write a gem description
 
 ## Installation
