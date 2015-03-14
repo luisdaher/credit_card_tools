@@ -14,5 +14,10 @@ describe CreditCardTools::TypeRetriever::Policies::VisaPolicy do
       let(:credit_card) { '3111111111111112' }
       it { expect(described_class.matches?(credit_card)).to eq(false) }
     end
+
+    context 'when credit card number is invalid' do
+      let(:credit_card) { '4211111111111111' }
+      it { expect(described_class.matches?(credit_card)).to eq(false) }
+    end
   end
 end

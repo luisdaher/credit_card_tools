@@ -29,7 +29,7 @@ describe CreditCardTools::TypeRetriever do
     end
 
     context 'when it matches a type' do
-      it { expect(described_class.type_for('4123111111111111')).to eq('Visa') }
+      it { expect(described_class.type_for('4111111111111111')).to eq('Visa') }
     end
   end
 end

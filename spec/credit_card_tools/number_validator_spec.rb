@@ -15,7 +15,7 @@ describe CreditCardTools::NumberValidator do
 
     context 'when the card number exists' do
       it "calls the '.matches_any_policy?' method" do
-        expect(described_class).to receive(:matches_any_policy?)
+        expect(described_class).to receive(:matches?)
         described_class.valid?('123')
       end
     end

@@ -9,7 +9,7 @@ module CreditCardTools
 
     def self.valid?(number)
       return false if number.nil? || number.empty?
-      matches_any_policy?(number)
+      matches?(number)
     end
 
     def self.matches?(number)
