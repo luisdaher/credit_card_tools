@@ -3,19 +3,6 @@ module CreditCardTools
   # This class is responsible for validating if
   # the number belongs to a valid credit card.
   module NumberValidator
-    RELATIVE_NUMBERS = {
-      '0' => 0,
-      '1' => 2,
-      '2' => 4,
-      '3' => 6,
-      '4' => 8,
-      '5' => 1,
-      '6' => 3,
-      '7' => 5,
-      '8' => 7,
-      '9' => 9
-    }
-
     def self.valid?(number)
       number && matches_all_policies?(number)
     end
