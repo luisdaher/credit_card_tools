@@ -5,36 +5,48 @@ describe CreditCardTools::NumberValidator do
   subject { described_class.new({}) }
 
   describe '.valid?' do
-    context 'when credit card number is valid' do
-      context 'and it is a common credit card' do
-        let(:credit_card) { '4111111111111111' }
-        it { expect(described_class.valid?(credit_card)).to eq(true) }
-      end
-
-      context 'and it is a Hipercard credit card' do
-        let(:credit_card) { '1234123412341234123' }
-        it { expect(described_class.valid?(credit_card)).to eq(true) }
-      end
-
-      context 'and it is an AMEX credit card' do
-        let(:credit_card) { '378282246310005' }
-        it { expect(described_class.valid?(credit_card)).to eq(true) }
-      end
-
+    context 'when the number is nil' do
+      it { expect(described_class.valid?(nil)).to eq(false) }
     end
 
-    context 'when credit card number is invalid' do
-      context 'and it is a common credit card' do
-        let(:credit_card) { '4111111111111112' }
-        it { expect(described_class.valid?(credit_card)).to eq(false) }
-      end
-
-      context 'and it is an AMEX credit card' do
-        let(:credit_card) { '378282246310006' }
-        it { expect(described_class.valid?(credit_card)).to eq(false) }
-      end
+    context 'when the number is empty' do
+      it { expect(described_class.valid?('')).to eq(false) }
     end
 
+    context 'when the card number exists' do
+      it "calls the '.matches_any_policy?' method" do
+        expect(described_class).to receive(:matches_any_policy?)
+        described_class.valid?('123')
+      end
+    end
   end
 
+  describe '.matches?' do
+    it 'looks for all Policy classes' do
+      expect(described_class)
+        .to(receive(:policy_class_names))
+        .and_return([])
+      described_class.matches?('123')
+    end
+
+    it "calls each Policy 'match' method" do
+      expect(CreditCardTools::NumberValidator::Policies::LuhnPolicy)
+        .to(receive(:matches?))
+      described_class.matches?('123')
+    end
+
+    it 'returns true if it matches a Policy' do
+      expect(CreditCardTools::NumberValidator::Policies::LuhnPolicy)
+        .to(receive(:matches?))
+        .and_return(true)
+      expect(described_class.matches?('123')).to eq(true)
+    end
+
+    it "returns false if it doesn't match any Policy" do
+      expect(described_class)
+        .to(receive(:policy_class_names))
+        .and_return([])
+      expect(described_class.matches?('123')).to eq(false)
+    end
+  end
 end
