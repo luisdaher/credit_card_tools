@@ -9,5 +9,10 @@ module CreditCardTools
     def class_for(name)
       Object.const_get(name)
     end
+
+    def format_number(number)
+      return '' unless number.is_a?(String)
+      number.gsub(' ', '').gsub('-', '')
+    end
   end
 end

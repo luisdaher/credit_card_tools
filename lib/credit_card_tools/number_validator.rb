@@ -8,8 +8,9 @@ module CreditCardTools
     extend CreditCardTools::PolicyExtension
 
     def self.valid?(number)
-      return false if number.nil? || number.empty?
-      matches?(number)
+      formatted_number = format_number(number)
+      return false if formatted_number.nil? || formatted_number.empty?
+      matches? formatted_number
     end
 
     def self.matches?(number)

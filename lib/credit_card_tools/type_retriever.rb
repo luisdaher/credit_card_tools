@@ -7,8 +7,9 @@ module CreditCardTools
     extend CreditCardTools::PolicyExtension
 
     def self.retrieve(number)
-      return nil if number.nil? || number.empty?
-      type_for number
+      formatted_number = format_number(number)
+      return nil if formatted_number.nil? || formatted_number.empty?
+      type_for formatted_number
     end
 
     def self.type_for(number)
