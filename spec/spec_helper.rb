@@ -10,4 +10,3 @@ RSpec.configure do |config|
   config.mock_with :rspec
   config.run_all_when_everything_filtered = true
 end
-
