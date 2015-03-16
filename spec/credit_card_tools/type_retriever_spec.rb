@@ -23,9 +23,7 @@ describe CreditCardTools::TypeRetriever do
 
   context '.type_for' do
     context "when there's no match" do
-      it 'returns a nil value' do
-        expect(described_class.type_for(nil)).to be_nil
-      end
+      it { expect(described_class.type_for(nil)).to eq('Other') }
     end
 
     context 'when it matches a type' do

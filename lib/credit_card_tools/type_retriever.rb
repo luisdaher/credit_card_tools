@@ -9,6 +9,7 @@ module CreditCardTools
     def self.retrieve(number)
       formatted_number = format_number(number)
       return nil if formatted_number.nil? || formatted_number.empty?
+      return nil if CreditCardTools::NumberValidator.valid?(formatted_number)
       type_for formatted_number
     end
 
@@ -17,7 +18,7 @@ module CreditCardTools
         name = "#{Policies.name}::#{class_symbol}"
         return symbol_to_type(class_symbol) if class_for(name).matches?(number)
       end
-      nil
+      'Other'
     end
 
     def self.policy_class_names
